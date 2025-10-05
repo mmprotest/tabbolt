@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tabbolt"
+version = "0.1.0"
+description = "Robust PDF table extraction with merged cells and stitching"
+readme = "README.md"
+authors = [{name = "TabBolt Contributors"}]
+license = {text = "MIT"}
+requires-python = ">=3.10"
+keywords = ["pdf", "tables", "extraction", "ocr"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent"
+]
+dependencies = [
+  "pdfplumber>=0.11.0",
+  "reportlab",
+  "shapely>=2.0",
+  "numpy>=1.23",
+  "pandas>=1.5",
+  "lxml",
+  "rich>=13",
+  "click>=8",
+  "pydantic>=2",
+  "pillow",
+]
+
+[project.optional-dependencies]
+ml = [
+  "torch",
+  "torchvision",
+  "transformers",
+  "layoutparser",
+]
+fastjson = ["orjson"]
+
+dev = [
+  "pytest",
+  "pytest-cov",
+  "hypothesis",
+  "mypy",
+  "ruff",
+  "black",
+  "types-Pillow",
+  "pandas-stubs",
+  "types-lxml",
+]
+
+[project.scripts]
+tabbolt = "tabbolt.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tabbolt"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+filterwarnings = [
+  "ignore::UserWarning",
+]
+
+[tool.black]
+line-length = 88
+
+[tool.ruff]
+line-length = 88
+
+[tool.mypy]
+python_version = "3.10"
+warn_unused_configs = true
+check_untyped_defs = true
+namespace_packages = true
+explicit_package_bases = true
+plugins = []
+
